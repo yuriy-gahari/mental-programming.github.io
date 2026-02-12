@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Марафон «Новая Норма» - Апгрейд биокомпьютера за 21 день</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 191, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at top, #1a1f3a 0%, #0a0e1a 50%);
+        }
+
+        /* ЕДИНЫЙ КОНТЕЙНЕР ДЛЯ ВСЕГО */
+        .container {
+            max-width: 1140px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section wrapper для отступов между секциями */
+        .section {
+            padding: 80px 0;
+            width: 100%;
+        }
+
+        .section-sm {
+            padding: 40px 0;
+        }
+
+        /* Header/Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff 0%, #8a2be2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #a78bfa;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: #60a5fa;
+            margin-bottom: 40px;
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(20, 24, 40, 0.6);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 24px;
+            padding: clamp(25px, 4vw, 50px);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.05), transparent);
+            transition: 0.6s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Problem Section - единая ширина */
+        .problem-item {
+            margin: 25px 0;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .problem-label {
+            color: #ef4444;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .problem-label.context {
+            color: #60a5fa;
+        }
+
+        .problem-label.update {
+            color: #10b981;
+        }
+
+        .problem-item p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* ЕДИНАЯ СЕТКА для всех карточек */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        /* Карточки логистики */
+        .logistics-card {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.08) 0%, rgba(167, 139, 250, 0.08) 100%);
+            border: 2px solid rgba(96, 165, 250, 0.25);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .logistics-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(96, 165, 250, 0.5);
+            box-shadow: 0 15px 50px rgba(96, 165, 250, 0.25);
+        }
+
+        .logistics-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 5px 15px rgba(96, 165, 250, 0.3));
+        }
+
+        .logistics-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .logistics-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        .logistics-card strong {
+            color: #60a5fa;
+        }
+
+        /* Карточки возможностей (заменяют модули) */
+        .benefit-card {
+            background: linear-gradient(145deg, rgba(20, 24, 40, 0.8), rgba(30, 34, 50, 0.6));
+            border: 2px solid rgba(96, 165, 250, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(138, 43, 226, 0.5);
+            box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3);
+        }
+
+        .benefit-card:hover::after {
+            opacity: 1;
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;  /* ДОБАВИТЬ ЭТУ СТРОКУ */
+            width: 100%; 
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .benefit-card ul {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card ul li {
+            padding: 12px 0 12px 28px;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        .benefit-card ul li::before {
+            content: '🔹';
+            position: absolute;
+            left: 0;
+            top: 12px;
+        }
+
+        /* Tech блок - единая ширина */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .tech-item {
+            background: rgba(96, 165, 250, 0.05);
+            padding: 25px;
+            border-radius: 16px;
+            border-left: 4px solid #60a5fa;
+        }
+
+        .tech-label {
+            font-weight: 800;
+            color: #60a5fa;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .tech-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        /* Timeline - адаптивная */
+        .timeline-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .timeline-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #60a5fa, #8a2be2);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+        }
+
+        .timeline-week {
+            font-size: 1.1rem;
+            color: #a78bfa;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .timeline-title {
+            font-weight: 800;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .timeline-item p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin: 8px 0;
+        }
+
+        /* Pricing - единая сетка */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: rgba(20, 24, 40, 0.6);
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        .pricing-card.featured::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: #8a2be2;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.5);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(96, 165, 250, 0.3);
+        }
+
+        .pricing-label {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .pricing-amount {
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .pricing-deadline {
+            color: #9ca3af;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #00d4ff, #8a2be2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 800;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.4);
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Quote */
+        .quote {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-style: italic;
+            color: #a78bfa;
+            margin: 50px 0;
+            padding: 35px;
+            border-left: 5px solid #8a2be2;
+            background: rgba(138, 43, 226, 0.08);
+            border-radius: 12px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 10px 0;
+            color: #9ca3af;
+        }
+
+        /* Критическое сообщение */
+        .critical-note {
+            background: rgba(96, 165, 250, 0.1);
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .critical-note strong {
+            color: #60a5fa;
+            font-size: 1.2rem;
+        }
+
+        .critical-note p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 50px 0;
+            }
+
+            .hero {
+                padding: 80px 0 50px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .glass-card {
+                padding: 25px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+            .benefit-card {
+                padding: 25px 20px;
+            }
+
+            .logistics-card {
+                padding: 25px 20px;
+            }
+        }
+        /* Анимация для кольца */
+        @keyframes pulse-ring {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.2;
+            }
+        }
+
+        /* Дополнительный эффект свечения для карточек */
+        .timeline-card-glow {
+            transition: all 0.4s ease;
+        }
+
+        /* Анимация парения для иконок */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        /* Обновлённые стили для logistics-card с эффектом стекла */
+        .logistics-card {
+            background: linear-gradient(145deg, rgba(20, 24, 40, 0.8), rgba(30, 34, 50, 0.7));
+            border: 2px solid rgba(96, 165, 250, 0.25);
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .logistics-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(138, 43, 226, 0.6);
+            box-shadow: 0 25px 60px rgba(138, 43, 226, 0.4);
+            background: linear-gradient(145deg, rgba(30, 34, 55, 0.9), rgba(40, 44, 70, 0.8));
+        }
+
+        .logistics-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: -1;
+        }
+
+        .logistics-card:hover::before {
+            opacity: 1;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logistics-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 5px 15px rgba(96, 165, 250, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .logistics-card:hover .logistics-icon {
+            transform: scale(1.1);
+            filter: drop-shadow(0 10px 30px rgba(138, 43, 226, 0.6));
+        }
+
+        .logistics-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;  /* ← ДОБАВИТЬ ЭТУ СТРОКУ */
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .logistics-card:hover .logistics-title {
+            background: linear-gradient(135deg, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;  /* ← И СЮДА ТОЖЕ */
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Марафон «Новая Норма»</h1>
+                <p class="subtitle">Права администратора для вашего мозга</p>
+                <p class="tagline">Апгрейд себя за 21 день</p>
+                <a href="https://forms.gle/jGieYHRzVWkuXbwA9" class="cta-button" target="_blank">Регистрация →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section">
+        <div class="container">
+            <div class="glass-card">
+                <h2 class="section-title">Почему система виснет?</h2>
+                
+                <div class="problem-item">
+                    <div class="problem-label context">СОВРЕМЕННЫЙ МИР</div>
+                    <p>Мы — научились — писать — промпты — для — ИИ,<br> но забыли, что <b>наш собственный мозг — это самый мощный биокомпьютер во Вселенной.</b></p>
+                </div>
+
+                <div class="problem-item">
+                    <div class="problem-label">СИСТЕМНЫЕ ОШИБКИ</div>
+                    <p>Страхи, навязчивые мысли и стресс <b>забирают до 300% вашей продуктивности.</b><br> Мозг современного человека просто «завис» от перегрузок современности.<br>Мы привыкли, что для изменений нужны либо годы психотерапии, либо изнурительные практики. Но мир изменился.</p>
+                </div>
+
+                <div class="problem-item">
+                    <div class="problem-label update">ОБНОВЛЕНИЕ СИСТЕМЫ</div>
+                    <p>🧠 Твой мозг ➜ это биокомпьютер. И ты можешь включить <b>права администратора</b> на марафоне «Новая Норма».</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logistics -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Логистика апгрейда</h2>
+            
+            <div class="cards-grid">
+                <!-- 21 День - Песочные часы ⏳ -->
+                <div class="logistics-card" style="position: relative; overflow: visible;">
+                    <div style="display: flex; justify-content: center; margin-bottom: 25px; position: relative; z-index: 2;">
+                        <div style="width: 110px; height: 110px; background: radial-gradient(circle at 30% 30%, #60a5fa, #4f46e5, #8a2be2); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 30px rgba(138,43,226,0.5); animation: float 6s ease-in-out infinite; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+                            <span style="font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));">⏳</span>
+                        </div>
+                    </div>
+                    <div class="logistics-title">21 День</div>
+                    <p><strong>Тебе нужно только 30 минут в день</strong><br> Легко сочетать с повседневными делами.</p>
+                    <div style="position: absolute; top: -10px; right: -10px; width: 50px; height: 50px; background: rgba(96,165,250,0.1); border-radius: 50%; filter: blur(20px); z-index: 1;"></div>
+                </div>
+                
+                <!-- Теория - YouTube ▶️ -->
+                <div class="logistics-card" style="position: relative; overflow: visible;">
+                    <div style="display: flex; justify-content: center; margin-bottom: 25px; position: relative; z-index: 2;">
+                        <div style="width: 110px; height: 110px; background: radial-gradient(circle at 70% 30%, #a78bfa, #7c3aed, #8a2be2); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 30px rgba(138,43,226,0.5); animation: float 6s ease-in-out infinite 0.2s; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+                            <span style="font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));">▶️</span>
+                        </div>
+                    </div>
+                    <div class="logistics-title">Теория</div>
+                    <p><strong>~10 минут в течении дня</strong><br> Каждый день вы будете узнавать новые способы прямого управлений своей психикой.</p>
+                    <div style="position: absolute; top: -10px; left: -10px; width: 50px; height: 50px; background: rgba(167,139,250,0.1); border-radius: 50%; filter: blur(20px); z-index: 1;"></div>
+                </div>
+                
+                <!-- Практика - Карандаш ✍️ -->
+                <div class="logistics-card" style="position: relative; overflow: visible;">
+                    <div style="display: flex; justify-content: center; margin-bottom: 25px; position: relative; z-index: 2;">
+                        <div style="width: 110px; height: 110px; background: radial-gradient(circle at 40% 70%, #38bdf8, #2563eb, #6d28d9); border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 30px rgba(138,43,226,0.5); animation: float 6s ease-in-out infinite 0.4s; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
+                            <span style="font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));">✍️</span>
+                        </div>
+                    </div>
+                    <div class="logistics-title">Практика</div>
+                    <p><strong>в 20:00 ~15 минут</strong><br> По вечерам мы будем закреплять теорию на практике в закрытом Telegram-чате.</p>
+                    <div style="position: absolute; bottom: -10px; right: -10px; width: 50px; height: 50px; background: rgba(56,189,248,0.1); border-radius: 50%; filter: blur(20px); z-index: 1;"></div>
+                </div>
+            </div>
+            
+            <div class="critical-note">
+                <strong style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.3rem;">
+                    <span style="font-size: 2rem; filter: drop-shadow(0 0 10px #a78bfa);">💎</span>
+                    ПОЛЬЗА
+                    <span style="font-size: 2rem; filter: drop-shadow(0 0 10px #a78bfa);">💎</span>
+                </strong>
+                <p>Ты получаешь набор ментальных инструментов, которые можно использовать мысленно в любой момент для восстановления сил, снятия стресса, входа в нужное состояние, восстановления границ и достижения целей.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Что вы получите - отдельные карточки -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">За 21 день ты научишься</h2>
+            
+            <div class="cards-grid">
+                <!-- Управление энергией -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-bolt" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Управление энергией</h3>
+                    <ul>
+                        <li>За 5 минут активировать полный энергетический ресурс</li>
+                        <li>Оставаться в тонусе в течение всего дня</li>
+                        <li>Начинать каждое утро с ощущением полного заряда</li>
+                        <li>Фокусировать ресурс там, где он создает реальную ценность</li>
+                    </ul>
+                </div>
+
+                <!-- Работа со стрессом -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-spa" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Работа со стрессом</h3>
+                    <ul>
+                        <li>Быстро перезагружать внутреннюю систему</li>
+                        <li>Сохранять свой центр в любом окружении</li>
+                        <li>Мгновенно возвращаться в ресурсное состояние</li>
+                        <li>Удерживать ясность и спокойствие в любых ситуациях</li>
+                    </ul>
+                </div>
+
+                <!-- Состояния и настроение -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-face-smile" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Состояния и настроение</h3>
+                    <ul>
+                        <li>Включать нужный режим когда требуется</li>
+                        <li>Выбирать свои эмоциональные реакции осознанно</li>
+                        <li>Настраиваться оптимально для важных встреч и событий</li>
+                        <li>Формировать и ощущать свои границы</li>
+                    </ul>
+                </div>
+
+                <!-- Отношения -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-users" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Отношения</h3>
+                    <ul>
+                        <li>Создавать гармоничную атмосферу в общении</li>
+                        <li>Выстраивать конструктивное взаимодействие</li>
+                        <li>Формировать нужное впечатление о себе</li>
+                        <li>Превращать своё пространство в зону комфорта</li>
+                    </ul>
+                </div>
+
+                <!-- Цели и продуктивность -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-bullseye" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Цели и продуктивность</h3>
+                    <ul>
+                        <li>Находить оптимальные пути к целям</li>
+                        <li>Достигать большего с меньшими затратами сил</li>
+                        <li>Развивать интуицию для точных решений</li>
+                        <li>Освобождать свой потенциал для реализации желаемого</li>
+                    </ul>
+                </div>
+
+                <!-- Здоровье и самочувствие -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">
+                        <i class="fas fa-heart-pulse" style="font-size: 2.5rem; color: white; filter: drop-shadow(0 0 10px rgba(96,165,250,0.5));"></i>
+                    </span>
+                    <h3 class="benefit-title">Здоровье и самочувствие</h3>
+                    <ul>
+                        <li>Управлять физическим состоянием через ментальные техники</li>
+                        <li>Регулировать самочувствие направленным вниманием</li>
+                        <li>Активировать естественные ресурсы восстановления организма</li>
+                        <li>Превращать свой дом в источник силы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Измеримый результат</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #9ca3af; font-size: 1.1rem;">
+                Конкретные изменения по неделям
+            </p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+                
+                <!-- Неделя 1 -->
+                <div style="flex: 1 1 280px; max-width: 350px; margin: 0 auto;">
+                    <div style="background: linear-gradient(145deg, rgba(20, 24, 40, 0.9), rgba(30, 34, 50, 0.8)); border: 2px solid rgba(96, 165, 250, 0.3); border-radius: 24px; padding: 30px 25px; position: relative; overflow: hidden; height: 100%; transition: all 0.4s ease; backdrop-filter: blur(10px);" 
+                        onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='#8a2be2'; this.style.boxShadow='0 20px 40px rgba(138,43,226,0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(96,165,250,0.3)'; this.style.boxShadow='none';">
+                        
+                        <!-- Иконка с подсветкой -->
+                        <div style="display: flex; justify-content: center; margin-bottom: 25px;">
+                            <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #60a5fa, #8a2be2); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(138,43,226,0.5); position: relative;">
+                                <i class="fas fa-chart-line" style="font-size: 3rem; color: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));"></i>
+                                <div style="position: absolute; width: 110px; height: 110px; border: 2px solid rgba(96,165,250,0.3); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse-ring 3s ease-in-out infinite;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Контент -->
+                        <div style="text-align: center;">
+                            <span style="display: inline-block; padding: 6px 18px; background: rgba(138,43,226,0.15); border-radius: 50px; color: #a78bfa; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid rgba(138,43,226,0.3);">НЕДЕЛЯ 1</span>
+                            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Стабилизация</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-bolt" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Восстановление после стресса:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">5-10 минут</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-shield" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Снижение влияния чужих эмоций:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">на 70-80%</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-moon" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Качество сна:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">Глубокий сон</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Неделя 2 -->
+                <div style="flex: 1 1 280px; max-width: 350px; margin: 0 auto;">
+                    <div style="background: linear-gradient(145deg, rgba(20, 24, 40, 0.9), rgba(30, 34, 50, 0.8)); border: 2px solid rgba(96, 165, 250, 0.3); border-radius: 24px; padding: 30px 25px; position: relative; overflow: hidden; height: 100%; transition: all 0.4s ease; backdrop-filter: blur(10px);" 
+                        onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='#8a2be2'; this.style.boxShadow='0 20px 40px rgba(138,43,226,0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(96,165,250,0.3)'; this.style.boxShadow='none';">
+                        
+                        <div style="display: flex; justify-content: center; margin-bottom: 25px;">
+                            <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #60a5fa, #8a2be2); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(138,43,226,0.5); position: relative;">
+                                <i class="fas fa-sliders" style="font-size: 3rem; color: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));"></i>
+                                <div style="position: absolute; width: 110px; height: 110px; border: 2px solid rgba(96,165,250,0.3); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse-ring 3s ease-in-out infinite;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <span style="display: inline-block; padding: 6px 18px; background: rgba(138,43,226,0.15); border-radius: 50px; color: #a78bfa; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid rgba(138,43,226,0.3);">НЕДЕЛЯ 2</span>
+                            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Контроль</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-gauge-high" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Вход в нужное состояние:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">2-3 минуты</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-bullseye" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Концентрация внимания:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">рост в 2-3 раза</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-lightbulb" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Ясность мышления:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">стабильная в течение дня</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Неделя 3 -->
+                <div style="flex: 1 1 280px; max-width: 350px; margin: 0 auto;">
+                    <div style="background: linear-gradient(145deg, rgba(20, 24, 40, 0.9), rgba(30, 34, 50, 0.8)); border: 2px solid rgba(96, 165, 250, 0.3); border-radius: 24px; padding: 30px 25px; position: relative; overflow: hidden; height: 100%; transition: all 0.4s ease; backdrop-filter: blur(10px);" 
+                        onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='#8a2be2'; this.style.boxShadow='0 20px 40px rgba(138,43,226,0.3)';" 
+                        onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(96,165,250,0.3)'; this.style.boxShadow='none';">
+                        
+                        <div style="display: flex; justify-content: center; margin-bottom: 25px;">
+                            <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #60a5fa, #8a2be2); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(138,43,226,0.5); position: relative;">
+                                <i class="fas fa-crown" style="font-size: 3rem; color: white; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));"></i>
+                                <div style="position: absolute; width: 110px; height: 110px; border: 2px solid rgba(96,165,250,0.3); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse-ring 3s ease-in-out infinite;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <span style="display: inline-block; padding: 6px 18px; background: rgba(138,43,226,0.15); border-radius: 50px; color: #a78bfa; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 15px; border: 1px solid rgba(138,43,226,0.3);">НЕДЕЛЯ 3</span>
+                            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Автоматизм</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-rotate" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Применение техник:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">не требует усилий</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-infinity" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Устойчивость навыка:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">остается навсегда</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px; align-items: flex-start; padding: 12px; background: rgba(96,165,250,0.05); border-radius: 12px; border-left: 3px solid #60a5fa;">
+                                    <i class="fas fa-medal" style="font-size: 1.4rem; color: #60a5fa; width: 24px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: #d1d5db; font-size: 0.9rem; margin-bottom: 3px;">Достижения:</strong>
+                                        <span style="color: #60a5fa; font-weight: 700;">результаты в конкретных целях</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology MUNDI DEUS -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="glass-card">
+                <h2 class="section-title">Технология MUNDI DEUS</h2>
+                <p style="text-align: center; font-size: 1.15rem; margin-bottom: 40px; color: #d1d5db;">Как работает ментальное программирование</p>
+                
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-label">Особенность:</div>
+                        <p>В первый день марафона каждый участник получает специальную активацию своих природных способностей.</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Механизм:</div>
+                        <p>Активация "включает" способность работать с особыми командами для вашей нервной системы.</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-label">Итог:</div>
+                        <p>Прямые методы коррекции, которые мгновенно улучшают самочувствие.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Стоимость участия</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #9ca3af; font-size: 1.05rem;">Зависит от даты оплаты<br>Дедлайны указаны до 23:59</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-label">Предпродажа</div>
+                    <div class="pricing-amount">2200 грн</div>
+                    <div class="pricing-deadline">📅 до 19.02</div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-label">За 2 недели +</div>
+                    <div class="pricing-amount">3300 грн</div>
+                    <div class="pricing-deadline">📅 до 26.02</div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-label">За неделю +</div>
+                    <div class="pricing-amount">4400 грн</div>
+                    <div class="pricing-deadline">📅 до 05.03</div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-label">В последний момент</div>
+                    <div class="pricing-amount">5500 грн</div>
+                    <div class="pricing-deadline">📅 с 06.03 до старта</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="glass-card" style="text-align: center;">
+                <h2 class="section-title">Даты марафона</h2>
+                <p style="font-size: 1.15rem; margin-bottom: 30px; color: #d1d5db;">
+                    <strong style="color: #60a5fa;">📅 Старт:</strong> 13 марта (пт)<br>
+                    <strong style="color: #60a5fa;">📅 Финиш:</strong> 2 апреля (чт)
+                </p>
+                
+                <div class="quote">
+                    Вашей нормой станет чувствовать себя полным сил и радости.
+                </div>
+
+                <a href="https://forms.gle/jGieYHRzVWkuXbwA9" class="cta-button" target="_blank">Регистрация на курс →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="color: #9ca3af; font-size: 1.1rem;">21-дневный марафон «Новая норма»</p>
+            <p style="margin-top: 15px; font-size: 0.95rem; color: #6b7280;">
+                Тебе нужно только 30 минут в день
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
