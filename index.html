@@ -1022,13 +1022,13 @@
             
             <div class="pricing-grid">
 
-                <div class="pricing-card">
+                <div class="pricing-card" data-deadline="2026-02-26T00:01:00+02:00">
                     <div class="pricing-label">За 2 недели +</div>
                     <div class="pricing-amount">3300 грн</div>
                     <div class="pricing-deadline">📅 до 26.02</div>
                 </div>
 
-                <div class="pricing-card">
+                <div class="pricing-card" data-deadline="2026-03-06T00:01:00+02:00">
                     <div class="pricing-label">За неделю +</div>
                     <div class="pricing-amount">4400 грн</div>
                     <div class="pricing-deadline">📅 до 05.03</div>
@@ -1071,6 +1071,25 @@
             </p>
         </div>
     </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Текущая дата и время (в часовом поясе браузера)
+        const now = new Date();
+
+        // Перебираем все карточки с ценами
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            const deadlineStr = card.dataset.deadline;
+            if (!deadlineStr) return;
+
+            const deadline = new Date(deadlineStr);
+            // Если текущее время больше дедлайна – скрываем карточку
+            if (now > deadline) {
+                card.style.display = 'none';
+            }
+        });
+    });
+    </script>
 
 </body>
 </html>
